@@ -15,7 +15,7 @@ export async function createProduct(prevState: unknown, formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user || user.email !== "llavanesjohnraymark@gmail.com") {
+  if (!user || user.email !== "soulepsycle1201@gmail.com") {
     return redirect("/");
   }
 
@@ -51,7 +51,7 @@ export async function editProduct(prevState: any, formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user || user.email !== "llavanesjohnraymark@gmail.com") {
+  if (!user || user.email !== "soulepsycle1201@gmail.com") {
     return redirect("/");
   }
 
@@ -90,7 +90,7 @@ export async function deleteProduct(formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user || user.email !== "llavanesjohnraymark@gmail.com") {
+  if (!user || user.email !== "soulepsycle1201@gmail.com") {
     return redirect("/");
   }
 
@@ -107,7 +107,7 @@ export async function createBanner(prevState: any, formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user || user.email !== "llavanesjohnraymark@gmail.com") {
+  if (!user || user.email !== "soulepsycle1201@gmail.com") {
     return redirect("/");
   }
 
@@ -133,7 +133,7 @@ export async function deleteBanner(formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user || user.email !== "llavanesjohnraymark@gmail.com") {
+  if (!user || user.email !== "soulepsycle1201@gmail.com") {
     return redirect("/");
   }
 
