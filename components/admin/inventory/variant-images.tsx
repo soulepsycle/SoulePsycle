@@ -35,7 +35,7 @@ const VariantImages = ({
 
 				<div className="mt-2">
 					<CldUploadWidget
-						uploadPreset="soule-psycle-products"
+						uploadPreset="inventory-products"
 						// eslint-disable-next-line
 						onSuccess={(results: any) => {
 							variantColorImage(results.info.public_id);

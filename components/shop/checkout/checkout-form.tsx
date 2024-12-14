@@ -393,7 +393,7 @@ const CheckoutForm = ({
 											</ol>
 											<div className="space-y-2">
 												<CldUploadWidget
-													uploadPreset="soule-psycle-products"
+													uploadPreset="upload_qr_code"
 													onSuccess={
 														handleUploadSuccess
 													}

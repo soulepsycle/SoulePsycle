@@ -54,7 +54,7 @@ const VariantSizes = ({
 	});
 
 	const isTotebag =
-		watchedCategory === "b83c3f31-78be-4f56-84aa-19ea2a0f276e";
+		watchedCategory === "079b5f41-e644-4fa6-9c95-36d2189cdb05";
 
 	// eslint-disable-next-line
 	const selectedSizes = watchedSizes?.map((item: any) => item.size) || [];
