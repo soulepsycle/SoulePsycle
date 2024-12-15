@@ -39,6 +39,9 @@ const RootNav = () => {
 	const [open, setOpen] = React.useState<boolean>(false);
 
 	const { user } = useUser();
+	const isAdmin =
+		user?.emailAddresses.map((e) => e.emailAddress)[0] ===
+		"soulepsycle1201@gmail.com";
 
 	const userAvatarImg = user?.imageUrl || "";
 
@@ -151,18 +154,21 @@ const RootNav = () => {
 											</DropdownMenuItem>
 										);
 									})}
-									<DropdownMenuItem asChild>
-										<Button
-											type="button"
-											className="w-full"
-											variant={"ghost"}
-											asChild
-										>
-											<Link href={"/admin"}>
-												Admin Panel
-											</Link>
-										</Button>
-									</DropdownMenuItem>
+
+									{isAdmin && (
+										<DropdownMenuItem asChild>
+											<Button
+												type="button"
+												className="w-full"
+												variant={"ghost"}
+												asChild
+											>
+												<Link href={"/admin"}>
+													Admin Panel
+												</Link>
+											</Button>
+										</DropdownMenuItem>
+									)}
 
 									<DropdownMenuItem asChild>
 										<SignOutButton>
@@ -245,30 +251,32 @@ const RootNav = () => {
 													</DropdownMenuItem>
 												);
 											})}
-											<DropdownMenuItem asChild>
-										<Button
-											type="button"
-											className="w-full"
-											variant={"ghost"}
-											asChild
-										>
-											<Link href={"/admin"}>
-												Admin Panel
-											</Link>
-										</Button>
-									</DropdownMenuItem>
+											{isAdmin && (
+												<DropdownMenuItem asChild>
+													<Button
+														type="button"
+														className="w-full"
+														variant={"ghost"}
+														asChild
+													>
+														<Link href={"/admin"}>
+															Admin Panel
+														</Link>
+													</Button>
+												</DropdownMenuItem>
+											)}
 
-									<DropdownMenuItem asChild>
-										<SignOutButton>
-											<Button
-												type="button"
-												className="w-full"
-												variant={"destructive"}
-											>
-												Logout
-											</Button>
-										</SignOutButton>
-									</DropdownMenuItem>
+											<DropdownMenuItem asChild>
+												<SignOutButton>
+													<Button
+														type="button"
+														className="w-full"
+														variant={"destructive"}
+													>
+														Logout
+													</Button>
+												</SignOutButton>
+											</DropdownMenuItem>
 										</DropdownMenuContent>
 									</DropdownMenu>
 								</li>
