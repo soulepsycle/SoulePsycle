@@ -109,7 +109,6 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // Calculate subtotal and create order items
         const subtotal = user.bag.reduce((total, item) => {
             return total + item.product.price * item.quantity;
         }, 0);
@@ -117,7 +116,6 @@ export async function POST(req: NextRequest) {
         const shippingFee = 100;
         const totalPrice = subtotal + shippingFee;
 
-        // Create order and order items
         const order = await prisma.order.create({
             data: {
                 user_id: user.id,
@@ -131,12 +129,16 @@ export async function POST(req: NextRequest) {
                 order_item: {
                     create: user.bag.map((item) => ({
                         product_id: item.product.id,
-                        variant_size_id: item.variant_size?.id || null,
+                        variant_size_id: item.variant_size.id,
+                        variant_color_id: item.variant_color_id,
                         quantity: item.quantity,
                         price: item.product.price,
                     })),
                 },
             },
+            include: {
+                order_item: true
+            }
         });
 
         // Clear user bag

@@ -86,7 +86,8 @@ export const POST = async (req: Request) => {
 		const existingBagItem = await prisma.bag.findFirst({
 			where:{
 				user_id: userFromDBID,
-				variant_size_id,
+				variant_color_id,
+				variant_size_id: variant_size_id!,
 			}
 		})
 
@@ -119,7 +120,7 @@ export const POST = async (req: Request) => {
 				user_id: userFromDBID,
 				product_id,
 				variant_color_id,
-				variant_size_id: variant_size_id ?? null,
+				variant_size_id: variant_size_id!,
 				quantity: 1,
 			},
 		});
