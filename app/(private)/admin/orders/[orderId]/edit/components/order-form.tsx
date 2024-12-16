@@ -139,6 +139,7 @@ const OrderForm = ({
 										.category.name;
 										
 										const productColor = oi.variant_color?.color
+								const productSize = oi.variant_size.size
 
 								return (
 									<div
@@ -160,7 +161,7 @@ const OrderForm = ({
 										<div className="space-y-3">
 											<h2>{productName}</h2>
 											<Badge>{category}</Badge>
-											<p>{productColor}</p>
+											<p>{productColor} {productSize && (<>| {productSize}</>)}</p>
 											<p>
 												₱{price} x {quantity} = ₱
 												{orderItemTotal}
