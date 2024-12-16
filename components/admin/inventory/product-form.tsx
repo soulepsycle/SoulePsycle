@@ -93,7 +93,7 @@ export default function ProductForm({
 		name: "name",
 	});
 
-	const isSubmitting = form.formState.isSubmitting;
+	const isLoading = form.formState.isSubmitting || form.formState.isLoading
 
 	const onSubmit: SubmitHandler<TProductFormValues> = async (
     values: TProductFormValues
@@ -357,9 +357,8 @@ export default function ProductForm({
 
 					<Separator className="my-4" />
 
-					<Button type="submit" disabled={isSubmitting}>
-						{isSubmitting && "Submitting..."}
-						{product ? 'Update' : "Create"}
+					<Button type="submit" disabled={isLoading}>
+						{isLoading ? "Submitting..." : product ? 'Update' : 'Create'}
 					</Button>
 				</form>
 			</Form>

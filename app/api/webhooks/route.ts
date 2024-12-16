@@ -60,8 +60,8 @@ export async function POST(req: Request) {
 	if (evt.type === "user.created") {
 		await prisma.user.create({
 			data: {
-				first_name: evt.data.first_name as string,
-				last_name: evt.data.last_name as string,
+				first_name: evt.data.first_name || '' as string,
+				last_name: evt.data.last_name || '' as string,
 				email: evt.data.email_addresses.map((a) => a.email_address)[0],
 				clerk_user_id: evt.data.id as string,
 			},

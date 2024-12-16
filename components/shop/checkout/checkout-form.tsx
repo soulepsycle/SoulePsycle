@@ -198,8 +198,9 @@ const CheckoutForm = ({
 										<FormLabel>Landmark</FormLabel>
 										<FormControl>
 											<Input
-												placeholder="Sa tindahan ni aling nena"
+												placeholder="Jolibee"
 												{...field}
+												required
 											/>
 										</FormControl>
 										<FormDescription>

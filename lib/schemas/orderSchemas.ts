@@ -19,3 +19,10 @@ export const orderFormSchema = z.object({
 });
 
 export type TOrderFormValues = z.infer<typeof orderFormSchema>;
+
+export const orderUpdateFormSchema = z.object({
+	tracking_number: z.string().min(1, 'tracking number is required'),
+	status: z.nativeEnum(ORDER_STATUS)
+})
+
+export type TOrderUpdateFormValues = z.infer<typeof orderUpdateFormSchema>;

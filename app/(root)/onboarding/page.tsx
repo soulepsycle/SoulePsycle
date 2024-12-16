@@ -9,7 +9,9 @@ export default async function OnboardingComponent() {
 
   return (
     <section className='container py-12'>
-      <h1 className='mb-6'>Welcome {fullName}</h1>
+      <h1 className='mb-6'>Welcome {fullName && (
+        <span>{fullName}</span>
+      )}</h1>
       <OnboardingForm />
     </section>
   )

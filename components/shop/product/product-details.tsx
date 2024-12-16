@@ -12,7 +12,6 @@ import { notFound } from "next/navigation";
 
 export default function ProductDetails({
 	product,
-	bagItems,
 }: {
 	product: Prisma.productGetPayload<{
 		include: {
@@ -24,13 +23,6 @@ export default function ProductDetails({
 			};
 		};
 	}>;
-	bagItems: Prisma.bagGetPayload<{
-		include: {
-			product: true;
-			variant_color: true;
-			variant_size: true;
-		};
-	}>[];
 }) {
 	// Initial states for selected color, size, and image
 	const [selectedColor, setSelectedColor] = useState(
@@ -52,10 +44,6 @@ export default function ProductDetails({
 	const isToteBagCategory =
 		product.category.name.toLowerCase() === "tote bag";
 
-	const isBagItemExist = bagItems.find(
-		(b) => b.variant_color_id === selectedColorId
-	);
-
 	// Get selected variant color based on selected color
 	const selectedVariantColor = product.variant_color.find(
 		(variant) => variant.color === selectedColor
@@ -74,7 +62,6 @@ export default function ProductDetails({
 		}
 	};
 
-	// Handle size selection change
 	const handleSizeChange = (size: string, sizeId: string) => {
 		setSelectedSize(size);
 		setSelectedSizeId(sizeId);
@@ -92,27 +79,21 @@ export default function ProductDetails({
 	};
 
 	const productId = product.id;
-	const newVariant = product.variant_color.find(
-		(variant) => variant.color === selectedColor
-	);
 
 	useEffect(() => {
-		setSelectedColorId(newVariant?.id || "");
-		console.log("selectedSizeId:", {
-			selectedSizeId
-		});
-	}, [
-		userId,
-		productId,
-		selectedColor,
-		selectedColorId,
-		selectedSize,
-		selectedSizeId,
-		selectedVariantColor,
-		bagItems,
-		isBagItemExist,
-		newVariant,
-	]);
+		const colorId = product.variant_color.find(
+			(vc) => vc.color === selectedColor
+		)?.id;
+
+		// Auto-select the first available size for the selected color
+		const firstAvailableSize = product.variant_color
+			.find((vc) => vc.id === colorId)
+			?.variant_size.find((vs) => vs.stock > 0);
+
+		setSelectedColorId(colorId || "");
+		setSelectedSizeId(firstAvailableSize?.id || "");
+		setSelectedSize(firstAvailableSize?.size || "");
+	}, [selectedColor, product.variant_color]);
 
 	return (
 		<div className="grid md:grid-cols-2 gap-8">
@@ -192,14 +173,14 @@ export default function ProductDetails({
 								value={selectedSize}
 								onValueChange={(size) => {
 									const sizeId =
-										selectedVariantColor.variant_size.find(
+										selectedVariantColor?.variant_size.find(
 											(vs) => vs.size === size
 										)?.id || "";
 									handleSizeChange(size, sizeId);
 								}}
 								className="flex flex-wrap gap-2"
 							>
-								{selectedVariantColor.variant_size.map(
+								{selectedVariantColor?.variant_size.map(
 									(size) => (
 										<div key={size.id}>
 											<RadioGroupItem

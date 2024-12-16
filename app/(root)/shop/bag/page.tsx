@@ -40,7 +40,7 @@ export default async function Bag() {
     <section className="container cpy">
       <h1 className="mb-6">Your Bag</h1>
 
-      <div className="flex gap-12">
+      <div className="flex flex-col lg:flex-row gap-12">
       {bagItems.length === 0 && (
 				<>
 					<Card className="w-full">
