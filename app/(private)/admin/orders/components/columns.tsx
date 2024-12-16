@@ -69,7 +69,7 @@ export const columns: ColumnDef<Order>[] = [
 						<DropdownMenuItem asChild>
 							<Button type="button" asChild>
 								<Link
-									href={`/admin/inventory/${orderId}/edit`}
+									href={`/admin/orders/${orderId}/edit`}
 								>
 									View
 								</Link>

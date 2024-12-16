@@ -129,7 +129,8 @@ export async function POST(req: NextRequest) {
                 order_item: {
                     create: user.bag.map((item) => ({
                         product_id: item.product.id,
-                        variant_size_id: item.variant_size?.id || null,
+                        variant_size_id: item.variant_size.id,
+                        variant_color_id: item.variant_color_id,
                         quantity: item.quantity,
                         price: item.product.price,
                     })),
