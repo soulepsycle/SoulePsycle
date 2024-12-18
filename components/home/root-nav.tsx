@@ -60,6 +60,12 @@ const RootNav = () => {
 			icon: ShoppingBagIcon,
 			isActive: pathname === "/shop",
 		},
+		{
+			href: "/shop/bag",
+			label: "Bag",
+			icon: ShoppingBagIcon,
+			isActive: pathname === "/shop/bag",
+		},
 	];
 
 	const AVATAR_LINKS = [

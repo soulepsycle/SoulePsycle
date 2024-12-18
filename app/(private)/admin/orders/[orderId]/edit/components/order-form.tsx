@@ -49,11 +49,11 @@ const OrderForm = ({
 						include: {
 							product: {
 								include: {
-									category: true
-								}
-							}
-						}
-					}
+									category: true;
+								};
+							};
+						};
+					};
 				};
 			};
 			user: true;
@@ -91,6 +91,15 @@ const OrderForm = ({
 		} else {
 			toast.error("Please try again.");
 		}
+
+		const resendData = {
+			email: order.user.email,
+			firstName: order.user.first_name || "Unknown",
+			orderId: order.id,
+			trackingNumber: order.tracking_number,
+			orderStatus: "PROCESSING",
+		};
+		await axios.post("/api/send", resendData);
 	};
 
 	const isLoading = form.formState.isLoading || form.formState.isSubmitting;
@@ -126,20 +135,17 @@ const OrderForm = ({
 							{order.order_item.map((oi) => {
 								const { id } = oi;
 
-								const firstImage =
-									oi.variant_color?.images[0];
+								const firstImage = oi.variant_color?.images[0];
 								const productName =
-									oi.variant_color?.product
-										.name;
+									oi.variant_color?.product.name;
 								const price = oi.price;
 								const quantity = oi.quantity;
 								const orderItemTotal = price * quantity;
 								const category =
-									oi.variant_color?.product
-										.category.name;
-										
-										const productColor = oi.variant_color?.color
-								const productSize = oi.variant_size.size
+									oi.variant_color?.product.category.name;
+
+								const productColor = oi.variant_color?.color;
+								const productSize = oi.variant_size.size;
 
 								return (
 									<div
@@ -161,7 +167,12 @@ const OrderForm = ({
 										<div className="space-y-3">
 											<h2>{productName}</h2>
 											<Badge>{category}</Badge>
-											<p>{productColor} {productSize && (<>| {productSize}</>)}</p>
+											<p>
+												{productColor}{" "}
+												{productSize && (
+													<>| {productSize}</>
+												)}
+											</p>
 											<p>
 												₱{price} x {quantity} = ₱
 												{orderItemTotal}
@@ -270,21 +281,21 @@ const OrderForm = ({
 			</CardContent>
 			<CardFooter>
 				<div>
-				{proofOfPayments.map((pop, i) => {
-									return (
-										<div
-											key={pop + i}
-											className="relative h-[80vh] aspect-square"
-										>
-											<CldImage
-												src={pop}
-												alt={`${pop}+${i}`}
-												className="object-contain"
-												fill
-											/>
-										</div>
-									);
-								})}
+					{proofOfPayments.map((pop, i) => {
+						return (
+							<div
+								key={pop + i}
+								className="relative h-[80vh] aspect-square"
+							>
+								<CldImage
+									src={pop}
+									alt={`${pop}+${i}`}
+									className="object-contain"
+									fill
+								/>
+							</div>
+						);
+					})}
 				</div>
 			</CardFooter>
 		</Card>
