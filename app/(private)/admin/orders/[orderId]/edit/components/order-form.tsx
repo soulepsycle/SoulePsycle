@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Prisma } from "@prisma/client";
 import axios from "axios";
 import React from "react";
-import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
+import { FieldErrors, SubmitHandler, useForm, useWatch } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import {
@@ -71,6 +71,11 @@ const OrderForm = ({
 		},
 	});
 
+	const watchedTrackingNumber = useWatch({
+		control: form.control,
+		name: 'tracking_number'
+	})
+
 	const onSubmit: SubmitHandler<TOrderUpdateFormValues> = async (
 		values: TOrderUpdateFormValues
 	) => {
@@ -96,7 +101,7 @@ const OrderForm = ({
 			email: order.user.email,
 			firstName: order.user.first_name || "Unknown",
 			orderId: order.id,
-			trackingNumber: order.tracking_number,
+			trackingNumber: watchedTrackingNumber,
 			orderStatus: "PROCESSING",
 		};
 		await axios.post("/api/send", resendData);
